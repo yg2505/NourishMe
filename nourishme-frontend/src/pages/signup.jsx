@@ -15,7 +15,7 @@ export default function Signup() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("http://localhost:4000/api/auth/signup", form);
+      await axios.post("https://nourishme.onrender.com/api/auth/signup", form);
       alert("Signup successful! You can now login.");
       navigate("/login");
     } catch (err) {
