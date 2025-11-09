@@ -12,6 +12,9 @@ const prisma = new PrismaClient();
 const allowedOrigins = [
   process.env.CLIENT_URL,
   "http://localhost:5173", // for local dev
+  "nourish-me-yg2505s-projects.vercel.app",
+  "https://nourish-koo9pydxh-yg2505s-projects.vercel.app/",
+  "https://nourish-me-git-main-yg2505s-projects.vercel.app/"
 ];
 
 app.use(cors({
@@ -31,6 +34,7 @@ app.use(express.json());
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+
 app.post("/api/auth/signup", async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -42,7 +46,7 @@ app.post("/api/auth/signup", async (req, res) => {
       data: { name, email, password: hashedPassword },
     });
 
-    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "1d" }); 
     res.json({ token, user });
   } catch (error) {
     console.error(error);
@@ -60,6 +64,7 @@ app.post("/api/auth/login", async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "1d" });
+    
     res.json({ token, user });
   } catch (error) {
     console.error(error);
