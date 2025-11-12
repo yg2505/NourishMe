@@ -3,7 +3,7 @@ import AuthLayout from "../components/authLayout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({onLogin}) {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -17,6 +17,8 @@ export default function Login() {
     try {
       const res = await axios.post("https://nourishme.onrender.com/api/auth/login", form);
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      onLogin();
       navigate("/dashboard");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
