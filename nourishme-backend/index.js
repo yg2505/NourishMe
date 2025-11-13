@@ -47,7 +47,7 @@ app.post("/api/auth/signup", async (req, res) => {
     });
 
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "1d" }); 
-    res.json({ token, user });
+    res.status(200).json({ token, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error signing up", error });
@@ -65,7 +65,7 @@ app.post("/api/auth/login", async (req, res) => {
 
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "1d" });
     
-    res.json({ token, user });
+    res.status(200).json({ token, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error logging in", error });
