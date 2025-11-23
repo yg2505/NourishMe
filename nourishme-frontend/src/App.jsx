@@ -1,65 +1,102 @@
+// App.jsx
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
+import CompleteProfile from "./pages/CompleteProfile";  
+import ProfilePrompt from "./components/profilePrompt";   
+
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import PrivateRoute from "./components/privateRoute";
+
+function Navbar() {
+  const { token, logout } = useAuth();
+
+  return (
+    <nav className="p-4 bg-emerald-600 flex justify-center space-x-4">
+      {!token ? (
+        <>
+          <Link to="/signup" className="text-white hover:underline">Signup</Link>
+          <Link to="/login" className="text-white hover:underline">Login</Link>
+        </>
+      ) : (
+        <>
+          <Link to="/dashboard" className="text-white hover:underline">Dashboard</Link>
+          <button onClick={logout} className="text-white hover:underline">
+            Logout
+          </button>
+        </>
+      )}
+    </nav>
+  );
+}
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const { token } = useAuth();
+  const [showPrompt, setShowPrompt] = useState(true);
 
-  // Check token on mount
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-  }, []);
+    if (!token) return;
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setIsLoggedIn(false);
-    navigate("/login");
+    const user = JSON.parse(localStorage.getItem("user")); 
+    const skipped = localStorage.getItem("setupSkipped") === "true";
+
+    if (user && !user.profileCompleted && !skipped) {
+      setShowPrompt(true);
+    }
+  }, [token]);
+
+  const startSetup = () => {
+    setShowPrompt(false);
+    navigate("/complete-profile");
+  };
+
+  const skip = () => {
+    sessionStorage.setItem("setupSkipped", "true");
+    setShowPrompt(false);
+    navigate("/dashboard");
   };
 
   return (
     <>
-      <nav className="p-4 bg-emerald-600 flex justify-center space-x-4">
-        {!isLoggedIn ? (
-          <>
-            <Link to="/signup" className="text-white hover:underline">
-              Signup
-            </Link>
-            <Link to="/login" className="text-white hover:underline">
-              Login
-            </Link>
-            <Link to="/dashboard" className="text-white hover:underline">
-              Dashboard
-            </Link>
-          </>
-        ) : (
-          <button
-            onClick={handleLogout}
-            className="text-white justify-between "
-          >
-            Logout
-          </button>
-        )}
-      </nav>
+      {showPrompt && <ProfilePrompt startSetup={startSetup} skip={skip} />}
 
+      <Navbar />
       <Routes>
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/complete-profile"
+          element={
+            <PrivateRoute>
+              <CompleteProfile />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );
 }
 
-// Wrap App with Router outside (needed for useNavigate to work properly)
 export default function AppWrapper() {
   return (
     <Router>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </Router>
   );
 }

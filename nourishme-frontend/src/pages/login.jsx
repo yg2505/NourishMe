@@ -2,11 +2,13 @@ import { useState } from "react";
 import AuthLayout from "../components/authLayout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
-export default function Login({onLogin}) {
+export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth(); // <-- Pull login function from context
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,11 +16,16 @@ export default function Login({onLogin}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      const res = await axios.post("https://nourishme.onrender.com/api/auth/login", form);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      onLogin();
+      const res = await axios.post(
+        "https://nourishme.onrender.com/api/auth/login",
+        form
+      );
+
+      // Pass user + token to global auth state
+      login(res.data.user, res.data.token);
+
       navigate("/dashboard");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
@@ -63,10 +70,7 @@ export default function Login({onLogin}) {
 
         <p className="text-center text-gray-700 text-sm">
           Don’t have an account?{" "}
-          <a
-            href="/signup"
-            className="text-emerald-700 font-semibold hover:underline"
-          >
+          <a href="/signup" className="text-emerald-700 font-semibold hover:underline">
             Sign up
           </a>
         </p>
