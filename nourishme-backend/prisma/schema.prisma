@@ -23,5 +23,18 @@ model User {
   profileCompleted Boolean   @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @db.Timestamp(6)
+  mealPlans  MealPlan[]
 }
 
+model MealPlan {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  title       String
+  description String?
+  meals       Json      @default("[]") 
+  isPublic    Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id])
+  @@index([userId])
+}

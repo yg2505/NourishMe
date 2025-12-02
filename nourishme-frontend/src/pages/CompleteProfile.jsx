@@ -36,7 +36,7 @@ export default function CompleteProfileWizard() {
   const handleSubmit = async () => {
     try {
       await axios.put(
-        "https://nourishme.onrender.com/api/user/profile",
+        "https://nourishme.onrender.com/api/users/profile",
         {
           ...form,
           dietType: form.suggestedDiet || form.dietType,
@@ -63,12 +63,9 @@ export default function CompleteProfileWizard() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4">
-      <div className="w-full max-w-lg bg-white shadow-xl rounded-2xl p-6">
+    <div className="flex justify-center items-center min-h-screen ">
+      <div className="w-full  ">
         {renderStep()}
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Step {step} of 6
-        </p>
       </div>
     </div>
   );

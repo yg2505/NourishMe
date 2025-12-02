@@ -1,12 +1,12 @@
 // App.jsx
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
 import CompleteProfile from "./pages/CompleteProfile";  
-import ProfilePrompt from "./components/profilePrompt";   
+import MealPlansPage from "./pages/mealPlans"
 
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import PrivateRoute from "./components/privateRoute";
@@ -15,7 +15,7 @@ function Navbar() {
   const { token, logout } = useAuth();
 
   return (
-    <nav className="p-4 bg-emerald-600 flex justify-center space-x-4">
+    <nav className="p-4 bg-gradient-to-r from-[#159957] to-[#155799] flex justify-center space-x-4">
       {!token ? (
         <>
           <Link to="/signup" className="text-white hover:underline">Signup</Link>
@@ -34,36 +34,8 @@ function Navbar() {
 }
 
 function App() {
-  const navigate = useNavigate();
-  const { token } = useAuth();
-  const [showPrompt, setShowPrompt] = useState(true);
-
-  useEffect(() => {
-    if (!token) return;
-
-    const user = JSON.parse(localStorage.getItem("user")); 
-    const skipped = localStorage.getItem("setupSkipped") === "true";
-
-    if (user && !user.profileCompleted && !skipped) {
-      setShowPrompt(true);
-    }
-  }, [token]);
-
-  const startSetup = () => {
-    setShowPrompt(false);
-    navigate("/complete-profile");
-  };
-
-  const skip = () => {
-    sessionStorage.setItem("setupSkipped", "true");
-    setShowPrompt(false);
-    navigate("/dashboard");
-  };
-
   return (
     <>
-      {showPrompt && <ProfilePrompt startSetup={startSetup} skip={skip} />}
-
       <Navbar />
       <Routes>
         <Route path="/signup" element={<Signup />} />
@@ -86,7 +58,18 @@ function App() {
             </PrivateRoute>
           }
         />
+     
+
+      <Route
+        path="/meal-plans"
+        element={
+          <PrivateRoute>
+            <MealPlansPage />
+          </PrivateRoute>
+        }
+      />
       </Routes>
+
     </>
   );
 }

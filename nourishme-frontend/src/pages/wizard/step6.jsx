@@ -59,21 +59,22 @@ export default function Step6({ back }) {
     <div className="w-full max-w-xl space-y-6">
       <h2 className="text-xl font-semibold">Choose Your Diet Plan</h2>
 
-      
 
-      
+
+
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {dietsList.map((diet) => (
           <div
             key={diet}
-            onClick={() => {setDietType(diet) 
-              setIsSuggested(false)}}
-            className={`p-4 border rounded-xl cursor-pointer text-center font-medium transition ${
-              dietType === diet
+            onClick={() => {
+              setDietType(diet)
+              setIsSuggested(false)
+            }}
+            className={`p-4 border rounded-xl cursor-pointer text-center font-medium transition ${dietType === diet
                 ? "bg-emerald-600 text-white border-emerald-700"
                 : "bg-white hover:bg-gray-50"
-            }`}
+              }`}
           >
             {diet}
           </div>
@@ -81,15 +82,15 @@ export default function Step6({ back }) {
       </div>
 
       <button
-          onClick={suggestDiet}
-          className="w-full px-5 py-2 bg-emerald-600 text-white rounded-xl"
-        >
-          Suggest Diet Based on BMI
+        onClick={suggestDiet}
+        className="w-full px-5 py-2 bg-emerald-600 text-white rounded-xl"
+      >
+        Suggest Diet Based on BMI
       </button>
       {isSuggested && dietType && (<div>
         {bmi && (
           <p className="font-semibold text-center">Your BMI: {bmi}</p>
-      )}
+        )}
         <p className="text-center font-semibold text-emerald-600">
           Suggested Diet: {dietType}
         </p>

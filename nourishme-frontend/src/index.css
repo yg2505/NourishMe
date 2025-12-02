@@ -6,3 +6,19 @@
 body {
   font-family: 'Inter', sans-serif;
 }
+/* src/index.css or globals.css */
+.bg-light-gradient {
+  @apply bg-gradient-to-br from-[#8de6b9] to-[#377cc2];
+}
+
+.bg-dark-gradient {
+  @apply bg-gradient-to-r from-[#159957] to-[#155799];
+}
+
+.btn-primary {
+  @apply bg-dark-gradient text-white font-semibold rounded-xl px-6 py-3 shadow-lg hover:opacity-90 transition;
+}
+
+.input-theme {
+  @apply bg-white/80 text-black border rounded-xl p-3 outline-none focus:ring-4 focus:ring-white/50;
+}

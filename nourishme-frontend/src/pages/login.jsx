@@ -26,7 +26,17 @@ export default function Login() {
       // Pass user + token to global auth state
       login(res.data.user, res.data.token);
 
-      navigate("/dashboard");
+      const profileIncomplete =
+        !res.data.user.age ||
+        !res.data.user.height ||
+        !res.data.user.weight
+      if (profileIncomplete) {
+        navigate("/complete-profile");
+      } else {
+        console.log(res.data.user)
+        navigate("/dashboard");
+      }
+
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     } finally {
