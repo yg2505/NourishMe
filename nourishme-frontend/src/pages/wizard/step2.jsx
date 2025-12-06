@@ -1,16 +1,9 @@
 // src/pages/profile/Step2.jsx
-import React, { useState } from "react";
+import React from "react";
 
-export default function Step2({ next }) {
-  const [form, setForm] = useState({ height: "", weight: "" });
-
+export default function Step2({ form, updateForm, next, back }) {
   const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleNext = () => {
-    localStorage.setItem("profile", JSON.stringify(form));
-    next();
-  };
+    updateForm({ [e.target.name]: e.target.value });
 
   return (
     <div className="w-full max-w-md space-y-4">
@@ -34,14 +27,19 @@ export default function Step2({ next }) {
         className="w-full p-3 border rounded-xl"
       />
 
-      <button
-          onClick={handleNext}
+      <div className="flex justify-between gap-3">
+        <button onClick={back} className="w-[50%] px-6 py-2 border rounded-xl">
+          Back
+        </button>
+        <button
+          onClick={next}
           disabled={!form.height || !form.weight}
-          className={`w-full mt-6 p-3 rounded-xl text-white
-          ${!form.height || !form.weight? 'bg-gray-300 cursor-not-allowed' : 'bg-emerald-600'}`}
+          className={`w-[50%] p-3 rounded-xl text-white
+          ${!form.height || !form.weight ? 'bg-gray-300 cursor-not-allowed' : 'bg-emerald-600'}`}
         >
           Next
-      </button>
+        </button>
+      </div>
     </div>
   );
 }

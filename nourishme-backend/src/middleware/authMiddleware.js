@@ -12,3 +12,6 @@ export const authMiddleware = (req, res, next) => {
     next();
   });
 };
+
+// Export alias for consistency
+export const authenticate = authMiddleware;

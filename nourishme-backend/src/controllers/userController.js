@@ -1,9 +1,9 @@
-import  prisma  from "../config/db.js";
+import prisma from "../config/db.js";
 
 export const getProfile = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
-      where: { id: req.user.id },
+      where: { id: Number(req.user.id) },
       select: {
         id: true,
         email: true,
@@ -42,8 +42,11 @@ export const updateProfile = async (req, res) => {
       dietType,
     } = req.body;
 
+    console.log("Update Profile Request - User:", req.user);
+    console.log("Update Profile Request - Body:", req.body);
+
     const updatedUser = await prisma.user.update({
-      where: { id: req.user.id },
+      where: { id: Number(req.user.id) },
       data: {
         age: age ? Number(age) : null,
         gender,

@@ -5,8 +5,11 @@ import { useState } from "react";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
-import CompleteProfile from "./pages/CompleteProfile";  
-import MealPlansPage from "./pages/mealPlans"
+import CompleteProfile from "./pages/CompleteProfile";
+import MonthlyMealPlanPage from "./pages/MonthlyMealPlanPage";
+import Recipes from "./pages/Recipes";
+import Profile from "./pages/Profile";
+import Favorites from "./pages/Favorites";
 
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import PrivateRoute from "./components/privateRoute";
@@ -58,16 +61,42 @@ function App() {
             </PrivateRoute>
           }
         />
-     
 
-      <Route
-        path="/meal-plans"
-        element={
-          <PrivateRoute>
-            <MealPlansPage />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/monthly-meal-plan"
+          element={
+            <PrivateRoute>
+              <MonthlyMealPlanPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/recipes"
+          element={
+            <PrivateRoute>
+              <Recipes />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/favorites"
+          element={
+            <PrivateRoute>
+              <Favorites />
+            </PrivateRoute>
+          }
+        />
       </Routes>
 
     </>

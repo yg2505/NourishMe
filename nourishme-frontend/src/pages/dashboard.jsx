@@ -14,25 +14,29 @@ function Dashboard() {
             <button className="w-full text-left py-3 px-4 bg-white/10 rounded-xl hover:bg-white/20 transition font-medium">
               Dashboard
             </button>
-            <button onClick={() => navigate("/meal-plans")} 
-            className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
-              Meal Plans
+            <button onClick={() => navigate("/monthly-meal-plan")}
+              className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
+              Monthly Meal Plans
             </button>
-            <button className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
+            <button
+              onClick={() => navigate("/recipes")}
+              className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
               Recipes
             </button>
-            <button className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
-              Goals
+            <button
+              onClick={() => navigate("/favorites")}
+              className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
+              Favorites
             </button>
-            <button className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
+            <button
+              onClick={() => navigate("/profile")}
+              className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
               Profile
             </button>
           </nav>
         </div>
 
-        <button className="mt-10 py-2 px-4 bg-white/20 rounded-lg hover:bg-white/30 transition font-medium">
-          Logout
-        </button>
+        
       </aside>
 
       {/* Main Section */}

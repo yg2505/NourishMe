@@ -5,6 +5,7 @@ import authRoutes from "./src/routes/AuthRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import corsOptions from "./src/config/cors.js";
 import mealPlansRouter from "./src/routes/mealPlanRoutes.js"
+import recipeRoutes from "./src/routes/recipeRoutes.js";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/meal-plans", mealPlansRouter);
+app.use("/api/recipes", recipeRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 4000;

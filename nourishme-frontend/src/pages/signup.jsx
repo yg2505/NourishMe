@@ -15,7 +15,8 @@ export default function Signup() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("https://nourishme.onrender.com/api/auth/signup", form);
+      const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api";
+      await axios.post(`${API_URL}/auth/signup`, form);
       alert("Signup successful! You can now login.");
       navigate("/login");
     } catch (err) {

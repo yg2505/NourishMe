@@ -18,8 +18,9 @@ export default function Login() {
     setLoading(true);
 
     try {
+      const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api";
       const res = await axios.post(
-        "https://nourishme.onrender.com/api/auth/login",
+        `${API_URL}/auth/login`,
         form
       );
 

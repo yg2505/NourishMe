@@ -1,15 +1,24 @@
 import express from "express";
-import {getMealPlanById, getMyMealPlans, createMealPlan, updateMealPlan, deleteMealPlan} from "../controllers/mealPlanController.js";
-import {authMiddleware} from "../middleware/authMiddleware.js";
+import {
+    createMonthlyMealPlan,
+    getMyMealPlans,
+    getMealPlanById,
+    deleteMealPlan,
+} from "../controllers/mealPlanController.js";
+import { authenticate } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.use(authMiddleware); // all routes require auth
+// Generate a new 30-day meal plan
+router.post("/generate-monthly", authenticate, createMonthlyMealPlan);
 
-router.get("/", getMyMealPlans);
-router.get("/:id", getMealPlanById);
-router.post("/", createMealPlan);
-router.put("/:id", updateMealPlan);
-router.delete("/:id", deleteMealPlan);
+// Get all user's meal plans
+router.get("/", authenticate, getMyMealPlans);
+
+// Get specific meal plan by ID
+router.get("/:id", authenticate, getMealPlanById);
+
+// Delete a meal plan
+router.delete("/:id", authenticate, deleteMealPlan);
 
 export default router;

@@ -15,3 +15,6 @@ export const getMealPlan = (id) => api.get(`/meal-plans/${id}`).then(r => r.data
 export const createMealPlan = (payload) => api.post("/meal-plans", payload).then(r => r.data);
 export const updateMealPlan = (id, payload) => api.put(`/meal-plans/${id}`, payload).then(r => r.data);
 export const deleteMealPlan = (id) => api.delete(`/meal-plans/${id}`).then(r => r.data);
+
+// Generate 30-day monthly meal plan
+export const generateMonthlyMealPlan = () => api.post("/meal-plans/generate-monthly").then(r => r.data);

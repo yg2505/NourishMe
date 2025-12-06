@@ -10,9 +10,11 @@ import Step4 from "./wizard/step4";
 import Step5 from "./wizard/step5";
 import Step6 from "./wizard/step6";
 
+import { useAuth } from "../contexts/AuthContext";
+
 export default function CompleteProfileWizard() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const { token, login } = useAuth(); // Use token from context if available, or fallback to localStorage
 
   const [step, setStep] = useState(1);
 
@@ -34,19 +36,41 @@ export default function CompleteProfileWizard() {
   const updateForm = (data) => setForm((prev) => ({ ...prev, ...data }));
 
   const handleSubmit = async () => {
+    console.log("Submitting profile update...", form);
     try {
-      await axios.put(
-        "https://nourishme.onrender.com/api/users/profile",
+      const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api";
+      console.log("Using API URL:", API_URL);
+
+      const authToken = token || localStorage.getItem("token");
+      if (!authToken) {
+        console.error("No token found");
+        alert("Authentication error. Please login again.");
+        navigate("/login");
+        return;
+      }
+
+      const response = await axios.put(
+        `${API_URL}/users/profile`,
         {
           ...form,
-          dietType: form.suggestedDiet || form.dietType,
+          dietType: form.dietType,
         },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${authToken}` } }
       );
 
+      console.log("Profile updated successfully:", response.data);
+
+      // Update Auth Context and LocalStorage
+      if (response.data.user) {
+        login(response.data.user, authToken);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+      }
+
+      localStorage.removeItem("setupSkipped");
       navigate("/dashboard");
     } catch (err) {
-      alert("Something went wrong updating profile");
+      console.error("Error updating profile:", err);
+      alert(`Something went wrong updating profile: ${err.response?.data?.message || err.message}`);
     }
   };
 

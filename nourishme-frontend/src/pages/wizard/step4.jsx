@@ -1,24 +1,18 @@
-// src/pages/profile/Step5.jsx
+// src/pages/profile/Step4.jsx
 import React, { useState } from "react";
 
-export default function Step5({ next, back }) {
-  const [allergies, setAllergies] = useState([]);
+export default function Step4({ form, updateForm, next, back }) {
+  const [inputValue, setInputValue] = useState("");
 
   const handleEnter = (e) => {
     if (e.key === "Enter" && e.target.value.trim()) {
-      setAllergies([...allergies, e.target.value]);
-      e.target.value = "";
+      updateForm({ allergies: [...(form.allergies || []), e.target.value] });
+      setInputValue("");
     }
   };
 
   const remove = (index) => {
-    setAllergies(allergies.filter((_, i) => i !== index));
-  };
-
-  const handleNext = () => {
-    const prev = JSON.parse(localStorage.getItem("profile")) || {};
-    localStorage.setItem("profile", JSON.stringify({ ...prev, allergies }));
-    next();
+    updateForm({ allergies: form.allergies.filter((_, i) => i !== index) });
   };
 
   return (
@@ -28,12 +22,14 @@ export default function Step5({ next, back }) {
       <input
         type="text"
         placeholder="Type allergy & press Enter"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleEnter}
         className="w-full p-3 border rounded-xl"
       />
 
       <div className="flex flex-wrap gap-2">
-        {allergies.map((a, i) => (
+        {(form.allergies || []).map((a, i) => (
           <span
             key={i}
             className="px-2 py-1 bg-emerald-200 rounded-full flex items-center gap-2"
@@ -49,7 +45,7 @@ export default function Step5({ next, back }) {
           Back
         </button>
         <button
-          onClick={handleNext}
+          onClick={next}
           className="px-6 py-2 bg-emerald-600 text-white rounded-xl"
         >
           Next

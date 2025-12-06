@@ -1,15 +1,7 @@
 // src/pages/profile/Step3.jsx
-import React, { useState } from "react";
+import React from "react";
 
-export default function Step3({ next, back }) {
-  const [activity, setActivity] = useState("");
-
-  const handleNext = () => {
-    const prev = JSON.parse(localStorage.getItem("profile")) || {};
-    localStorage.setItem("profile", JSON.stringify({ ...prev, activity }));
-    next();
-  };
-
+export default function Step3({ form, updateForm, next, back }) {
   return (
     <div className="w-full max-w-md space-y-4">
       <h2 className="text-xl font-semibold">Activity Level</h2>
@@ -19,9 +11,10 @@ export default function Step3({ next, back }) {
           <label key={level} className="flex items-center gap-3">
             <input
               type="radio"
-              name="activity"
+              name="activityLevel"
               value={level}
-              onChange={(e) => setActivity(e.target.value)}
+              checked={form.activityLevel === level}
+              onChange={(e) => updateForm({ activityLevel: e.target.value })}
             />
             {level}
           </label>
@@ -33,13 +26,13 @@ export default function Step3({ next, back }) {
           Back
         </button>
         <button
-          onClick={handleNext}
-          disabled={!activity}
-          className={` w-[50%] rounded-xl text-white
-          ${!activity ? 'bg-gray-300 cursor-not-allowed' : 'bg-emerald-600'}`}
+          onClick={next}
+          disabled={!form.activityLevel}
+          className={`w-[50%] rounded-xl text-white
+          ${!form.activityLevel ? 'bg-gray-300 cursor-not-allowed' : 'bg-emerald-600'}`}
         >
           Next
-      </button>
+        </button>
       </div>
     </div>
   );
