@@ -42,8 +42,9 @@ function Recipes() {
         setError("");
         try {
             const token = localStorage.getItem("token");
+            const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api";
             const response = await axios.post(
-                "http://localhost:4000/api/recipes/generate",
+                `${API_URL}/recipes/generate`,
                 { ingredients },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
