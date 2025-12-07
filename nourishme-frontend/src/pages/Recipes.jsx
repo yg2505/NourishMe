@@ -21,7 +21,8 @@ function Recipes() {
         setLoading(true);
         try {
             const token = localStorage.getItem("token");
-            const response = await axios.get("http://localhost:4000/api/recipes", {
+            const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api";
+            const response = await axios.get(`${API_URL}/recipes`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setRecipes(response.data);
