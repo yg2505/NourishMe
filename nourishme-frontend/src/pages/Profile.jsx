@@ -54,7 +54,7 @@ export default function Profile() {
     const fetchProfile = async () => {
         setLoading(true);
         try {
-            const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+            const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api";
             const response = await axios.get(`${API_URL}/users/profile`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -135,34 +135,34 @@ export default function Profile() {
     return (
         <div className="flex min-h-screen bg-gray-50">
             {/* Sidebar */}
-             <aside className="w-72 bg-gradient-to-b from-[#159957] to-[#155799] text-white p-6 flex flex-col justify-between">
+            <aside className="w-72 bg-gradient-to-b from-[#159957] to-[#155799] text-white p-6 flex flex-col justify-between">
                 <div>
-                <h1 className="text-3xl font-bold tracking-tight mb-10">NourishMe</h1>
+                    <h1 className="text-3xl font-bold tracking-tight mb-10">NourishMe</h1>
 
-                <nav className="space-y-5">
-                    <button className="w-full text-left py-3 px-4 bg-white/10 rounded-xl hover:bg-white/20 transition font-medium">
-                    Dashboard
-                    </button>
-                    <button onClick={() => navigate("/monthly-meal-plan")}
-                    className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
-                    Monthly Meal Plans
-                    </button>
-                    <button
-                    onClick={() => navigate("/recipes")}
-                    className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
-                    Recipes
-                    </button>
-                    <button
-                    onClick={() => navigate("/favorites")}
-                    className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
-                    Favorites
-                    </button>
-                    <button
-                    onClick={() => navigate("/profile")}
-                    className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
-                    Profile
-                    </button>
-                </nav>
+                    <nav className="space-y-5">
+                        <button className="w-full text-left py-3 px-4 bg-white/10 rounded-xl hover:bg-white/20 transition font-medium">
+                            Dashboard
+                        </button>
+                        <button onClick={() => navigate("/monthly-meal-plan")}
+                            className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
+                            Monthly Meal Plans
+                        </button>
+                        <button
+                            onClick={() => navigate("/recipes")}
+                            className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
+                            Recipes
+                        </button>
+                        <button
+                            onClick={() => navigate("/favorites")}
+                            className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
+                            Favorites
+                        </button>
+                        <button
+                            onClick={() => navigate("/profile")}
+                            className="w-full text-left py-3 px-4 hover:bg-white/10 rounded-xl transition font-medium">
+                            Profile
+                        </button>
+                    </nav>
                 </div>
 
             </aside>

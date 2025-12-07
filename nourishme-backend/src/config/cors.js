@@ -1,14 +1,24 @@
 const allowedOrigins = [
   process.env.CLIENT_URL,
   "http://localhost:5173",
-  "nourish-me-yg2505s-projects.vercel.app",
-  "https://nourish-koo9pydxh-yg2505s-projects.vercel.app/",
-  "https://nourish-me-git-main-yg2505s-projects.vercel.app/"
+  "https://nourish-me-yg2505s-projects.vercel.app",
+  "https://nourish-koo9pydxh-yg2505s-projects.vercel.app",
+  "https://nourish-me-git-main-yg2505s-projects.vercel.app"
 ];
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+
+    // Check if origin matches allowed origins or Vercel preview deployments
+    const isAllowed = allowedOrigins.includes(origin) ||
+      origin.match(/https:\/\/.*-yg2505s-projects\.vercel\.app$/);
+
+    if (isAllowed) {
       callback(null, true);
     } else {
       console.warn(`❌ Blocked by CORS: ${origin}`);

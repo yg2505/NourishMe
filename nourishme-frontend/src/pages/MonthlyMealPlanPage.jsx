@@ -91,7 +91,7 @@ export default function MonthlyMealPlanPage() {
 
     const saveMealAsFavorite = async (meal) => {
         try {
-            const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+            const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api";
             await axios.post(`${API_URL}/recipes/save-meal`, {
                 title: meal.name,
                 ingredients: meal.ingredients || "Ingredients not specified",

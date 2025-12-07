@@ -21,7 +21,7 @@ export default function Favorites() {
     const fetchFavorites = async () => {
         setLoading(true);
         try {
-            const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+            const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api";
             const response = await axios.get(`${API_URL}/recipes/favorites`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
