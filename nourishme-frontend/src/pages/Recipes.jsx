@@ -62,7 +62,8 @@ function Recipes() {
         if (!window.confirm("Are you sure you want to delete this recipe?")) return;
         try {
             const token = localStorage.getItem("token");
-            await axios.delete(`http://localhost:4000/api/recipes/${id}`, {
+            const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api"
+            await axios.delete(`${API_URL}/recipes/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setRecipes(recipes.filter((r) => r.id !== id));

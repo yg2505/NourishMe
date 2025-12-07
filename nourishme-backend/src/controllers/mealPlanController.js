@@ -35,7 +35,7 @@ export const createMonthlyMealPlan = async (req, res) => {
       const mealsData = existingPlan.meals;
       // Check if the stored plan matches current user goals AND has instructions (version check)
       // We check if the first day's breakfast has instructions to verify it's a new format plan
-      const hasInstructions = mealsData.days && mealsData.days[0]?.meals?.breakfast?.instructions;
+      const hasInstructions = mealsData && mealsData.days &&  mealsData.days[0]?.meals?.breakfast?.instructions;
 
       if (
         mealsData.userGoal === user.goal &&

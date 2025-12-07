@@ -61,11 +61,11 @@ export default function WeeklyCalendarView({
                         </div>
                         {weekDays.map((day, index) => (
                             <div
-                                key={day.day}
+                                key={index}
                                 className="p-4 text-center border-r border-gray-200 last:border-r-0"
                             >
                                 <div className="font-semibold text-gray-800">
-                                    {formatDate(day.day)}
+                                Day {index + 1}
                                 </div>
                                 {/* <div className="text-xs text-gray-400 mt-1">Mon</div> */}
                             </div>
@@ -84,11 +84,11 @@ export default function WeeklyCalendarView({
                             </div>
 
                             {/* Meal Cells */}
-                            {weekDays.map((day) => {
+                            {weekDays.map((day,index) => {
                                 const meal = day.meals[type.key];
                                 return (
                                     <div
-                                        key={`${day.day}-${type.key}`}
+                                        key={`${index}-${type.key}`}
                                         className="p-2 border-r border-gray-200 last:border-r-0 h-32 relative group cursor-pointer hover:bg-blue-50/50 transition"
                                         onClick={() => onMealClick(meal, day)}
                                     >

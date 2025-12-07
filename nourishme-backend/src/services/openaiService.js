@@ -87,7 +87,7 @@ IMPORTANT: "instructions" field is MANDATORY for every single meal. Do not omit 
 }
 
 Generate all 30 days now.`;
-
+  
   try {
     const completion = await openai.chat.completions.create({
       model: "llama-3.3-70b-versatile",
@@ -106,7 +106,7 @@ Generate all 30 days now.`;
     });
 
     const responseText = completion.choices[0].message.content.trim();
-
+    
     // Remove markdown code blocks if present
     let jsonText = responseText;
     if (jsonText.startsWith("```json")) {

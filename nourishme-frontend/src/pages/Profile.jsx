@@ -90,7 +90,7 @@ export default function Profile() {
         setSaving(true);
         setError("");
         try {
-            const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+            const API_URL = import.meta.env.VITE_API_URL || "https://nourishme.onrender.com/api";
             const response = await axios.put(
                 `${API_URL}/users/profile`,
                 formData,
