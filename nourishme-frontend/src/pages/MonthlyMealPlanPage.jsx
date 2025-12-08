@@ -115,10 +115,10 @@ export default function MonthlyMealPlanPage() {
             {/* Sidebar */}
             <aside className="w-72 bg-gradient-to-b from-[#159957] to-[#155799] text-white p-6 flex flex-col justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight mb-10">NourishMe</h1>
 
                     <nav className="space-y-5">
-                        <button className="w-full text-left py-3 px-4 bg-white/10 rounded-xl hover:bg-white/20 transition font-medium">
+                        <button onClick={() => navigate("/dashboard")}
+                        className="w-full text-left py-3 px-4  rounded-xl hover:bg-white/10 transition font-medium">
                             Dashboard
                         </button>
                         <button onClick={() => navigate("/monthly-meal-plan")}
@@ -159,7 +159,7 @@ export default function MonthlyMealPlanPage() {
                 {/* Month Filter */}
                 {monthlyPlans.length > 0 && (
                     <div className="mb-6">
-                        <label className="text-gray-700 font-semibold mb-2 block flex items-center gap-2">
+                        <label className="text-gray-700 font-semibold mb-2 flex items-center gap-2">
                             <Calendar className="w-5 h-5 text-[#159957]" />
                             Filter by Month:
                         </label>
@@ -240,18 +240,12 @@ export default function MonthlyMealPlanPage() {
                                             saveMealAsFavorite(selectedMeal)
                                             toggleFavorite()
                                         }}
-                                        className={`p-2 bg-gray-100 rounded-full
+                                        className={`p-3 bg-gray-100 rounded-full
                                             ${isFavorite ? "bg-red-100 text-red-500" : "bg-gray-100 hover:bg-gray-200"}`
                                         }
                                         title="Save to Favorites"
                                     >
                                         <Heart className="w-5 h-5" />
-                                    </button>
-                                    <button
-                                        onClick={() => setSelectedMeal(null)}
-                                        className="text-gray-400 hover:text-gray-600 transition"
-                                    >
-                                        <X className="w-6 h-6" />
                                     </button>
                                 </div>
                             </div>
@@ -269,7 +263,7 @@ export default function MonthlyMealPlanPage() {
                                     </p>
                                 </div>
 
-                                <div className="bg-gray-50 p-4 rounded-xl">
+                                <div className="bg-gray-100 p-4 rounded-xl">
                                     <h4 className="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Nutritional Info</h4>
                                     <div className="text-center">
                                         <div className="text-3xl font-bold text-gray-800">{selectedMeal.calories}</div>

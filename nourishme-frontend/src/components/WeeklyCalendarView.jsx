@@ -17,14 +17,6 @@ export default function WeeklyCalendarView({
     onPrev,
     onMealClick,
 }) {
-    // Helper to format date
-    const formatDate = (dayIndex) => {
-        // Assuming dayIndex is 1-based from the start of the plan
-        // We don't have actual dates in the mock data usually, just "Day 1", "Day 2".
-        // If we had a startDate, we could calculate.
-        // For now, let's just show "Day X".
-        return `Day ${dayIndex}`;
-    };
 
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">

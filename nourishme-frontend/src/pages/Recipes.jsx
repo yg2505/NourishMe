@@ -116,10 +116,10 @@ function Recipes() {
             {/* Sidebar */}
             <aside className="w-72 bg-gradient-to-b from-[#159957] to-[#155799] text-white p-6 flex flex-col justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight mb-10">NourishMe</h1>
 
                     <nav className="space-y-5">
-                        <button className="w-full text-left py-3 px-4 bg-white/10 rounded-xl hover:bg-white/20 transition font-medium">
+                        <button onClick={() => navigate("/dashboard")}
+                        className="w-full text-left py-3 px-4  rounded-xl hover:bg-white/10 transition font-medium">
                             Dashboard
                         </button>
                         <button onClick={() => navigate("/monthly-meal-plan")}

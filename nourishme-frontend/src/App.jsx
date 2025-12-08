@@ -1,6 +1,5 @@
 // App.jsx
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Signup from "./pages/signup";
 import Login from "./pages/login";
@@ -26,10 +25,12 @@ function Navbar() {
         </>
       ) : (
         <>
-          <Link to="/dashboard" className="text-white hover:underline">Dashboard</Link>
+        <div className="flex justify-between items-center w-full px-6">
+          <h1 className="text-white text-3xl font-bold">NourishMe</h1>
           <button onClick={logout} className="text-white hover:underline">
             Logout
           </button>
+        </div>
         </>
       )}
     </nav>
